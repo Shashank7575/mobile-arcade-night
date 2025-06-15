@@ -3,12 +3,13 @@ import { useState } from 'react';
 import { RotateCcw } from 'lucide-react';
 
 type Player = 'X' | 'O' | null;
+type GameResult = Player | 'draw';
 type Board = Player[];
 
 export const TicTacToe = () => {
   const [board, setBoard] = useState<Board>(Array(9).fill(null));
   const [currentPlayer, setCurrentPlayer] = useState<'X' | 'O'>('X');
-  const [winner, setWinner] = useState<Player>(null);
+  const [winner, setWinner] = useState<GameResult>(null);
   const [winningLine, setWinningLine] = useState<number[]>([]);
 
   const winningCombinations = [
@@ -39,7 +40,7 @@ export const TicTacToe = () => {
     if (gameWinner) {
       setWinner(gameWinner);
     } else if (newBoard.every(cell => cell !== null)) {
-      setWinner('draw' as Player);
+      setWinner('draw');
     } else {
       setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X');
     }
